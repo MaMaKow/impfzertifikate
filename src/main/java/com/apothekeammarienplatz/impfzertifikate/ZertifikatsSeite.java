@@ -22,4 +22,16 @@ package com.apothekeammarienplatz.impfzertifikate;
  */
 public class ZertifikatsSeite {
 
+    public ZertifikatsSeite() {
+    }
+
+    public void stelleZertifikatAus(String vorname, String nachname, String geburtsdatum, String impfstoff, String datum, String iterator) throws Exception {
+        throw new Exception("Not implemented yet!");
+
+    }
+
+    public void stelleZertifikatAus(Patient patient, String iterator) throws Exception {
+        throw new Exception("Not implemented yet!");
+    }
+
 }
