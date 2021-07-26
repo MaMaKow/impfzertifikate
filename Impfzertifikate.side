@@ -1,0 +1,119 @@
+{
+  "id": "bf5f1614-5cb3-4a89-ae9d-ac32a042d464",
+  "version": "2.0",
+  "name": "Impfzertifikate",
+  "url": "https://www.mein-apothekenportal.de/",
+  "tests": [{
+    "id": "91cc915f-525b-4e13-890e-ffb93932a7ec",
+    "name": "navigiere zu Zertifikaten",
+    "commands": [{
+      "id": "4506e09a-6e6e-4253-ba9b-321faa88af5f",
+      "comment": "",
+      "command": "open",
+      "target": "https://www.mein-apothekenportal.de/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "52c7c040-d645-478f-ae96-0416efec4b45",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x840",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "90af73ad-3f38-4b71-ad94-9237327c7e71",
+      "comment": "",
+      "command": "click",
+      "target": "css=.inline-block path",
+      "targets": [
+        ["css=.inline-block path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "e2597c57-635f-4213-9dc7-031d5dd8e724",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Dashboard",
+      "targets": [
+        ["linkText=Dashboard", "linkText"],
+        ["css=.py-1:nth-child(3) > .block", "css:finder"],
+        ["xpath=(//a[contains(text(),'Dashboard')])[2]", "xpath:link"],
+        ["xpath=//div[@id='app']/nav/div/div/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, 'https://www.mein-apothekenportal.de/dashboard')])[2]", "xpath:href"],
+        ["xpath=//div[2]/div/div[2]/div/div[3]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5d4b9354-b0cd-47e5-bb4e-f17d20c6ff87",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Digitales Impfzertifikat",
+      "targets": [
+        ["linkText=Digitales Impfzertifikat", "linkText"],
+        ["css=.mt-8:nth-child(1) .group:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Digitales Impfzertifikat')]", "xpath:link"],
+        ["xpath=//div[@id='sidebar']/div/div/div/div[2]/div/div/div/div/div/nav/div/div/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://www.mein-apothekenportal.de/pharmacies/30650d09-5f41-49bf-84e0-8062fac29af4/import-vaccination')]", "xpath:href"],
+        ["xpath=//nav/div/div/a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Digitales Impfzertifikat')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "ef00504e-0d59-4ba3-8aef-5e3920009dca",
+    "name": "Login",
+    "commands": [{
+      "id": "99177a1c-014b-4b8d-ba91-c4570b5d8789",
+      "comment": "",
+      "command": "open",
+      "target": "https://www.mein-apothekenportal.de/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e21d4612-1f6d-49e4-afaf-d99560a1ea48",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x840",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "58823594-5de4-4818-923e-2f7c743c4f57",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Anmelden",
+      "targets": [
+        ["linkText=Anmelden", "linkText"],
+        ["css=.whitespace-no-wrap", "css:finder"],
+        ["xpath=//a[contains(text(),'Anmelden')]", "xpath:link"],
+        ["xpath=//div[@id='app']/nav/div/div/div[2]/div[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://www.mein-apothekenportal.de/login')]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Anmelden')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "395eec15-db7f-4820-8a64-03776ecf55a9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.justify-center:nth-child(1)",
+      "targets": [
+        ["css=.justify-center:nth-child(1)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='app']/main/div[2]/div/form/div[4]/span/button", "xpath:idRelative"],
+        ["xpath=//span/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Anmelden')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "5ed6d9e3-6264-4902-bb0f-ace216985db0",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["91cc915f-525b-4e13-890e-ffb93932a7ec"]
+  }],
+  "urls": [],
+  "plugins": []
+}
