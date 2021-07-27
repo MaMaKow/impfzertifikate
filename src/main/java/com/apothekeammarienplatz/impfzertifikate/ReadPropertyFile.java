@@ -80,4 +80,12 @@ public class ReadPropertyFile {
         throw new RuntimeException("emailHost not specified in the Configuration.properties file.");
     }
 
+    public String getEmailPort() {
+        String emailPort = properties.getProperty("emailPort");
+        if (null != emailPort) {
+            return emailPort;
+        }
+        return "587";
+    }
+
 }

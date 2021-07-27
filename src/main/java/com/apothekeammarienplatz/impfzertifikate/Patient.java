@@ -25,6 +25,8 @@ public class Patient {
     String vorname;
     String nachname;
     String geburtsDatum;
+    String email;
+
     String ersteImpfungDatum;
     String ersteImpfungStoff;
     String ersteImpfungErste;
@@ -34,9 +36,12 @@ public class Patient {
     String zweiteImpfungZweite;
 
     public Patient(String[] patientLineStrings) {
+
         vorname = patientLineStrings[0];
         nachname = patientLineStrings[1];
         geburtsDatum = patientLineStrings[2];
+        email = patientLineStrings[9];
+
         ersteImpfungDatum = patientLineStrings[3];
         ersteImpfungStoff = patientLineStrings[4];
         ersteImpfungErste = patientLineStrings[5];
@@ -60,6 +65,10 @@ public class Patient {
 
     public String getGeburtsDatum() {
         return geburtsDatum;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getErsteImpfungDatum() {

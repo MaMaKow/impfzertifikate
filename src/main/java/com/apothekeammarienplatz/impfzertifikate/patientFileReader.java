@@ -33,17 +33,15 @@ public class patientFileReader {
             for (int lineNumber = 0; lineNumber < patientLineStringsList.size(); lineNumber++) {
                 patientLineStrings = patientLineStringsList.get(lineNumber);
                 Patient patient = new Patient(patientLineStrings);
-                System.out.println("patient.getZweiteImpfungDatum()");
-                System.out.println(patient.getZweiteImpfungDatum());
-                String nullvarString = null;
-                System.out.println(nullvarString);
 
+                /*
                 ZertifikatsSeite zertifikatsSeite = new ZertifikatsSeite();
                 zertifikatsSeite.stelleZertifikatAus(patient, "1");
                 if (!patient.getZweiteImpfungDatum().equals("")) {
                     zertifikatsSeite.stelleZertifikatAus(patient, "2");
                 }
-                /* */
+                 */
+                SendEmail sendEmail = new SendEmail(patient.getVorname(), patient.getNachname(), patient.getEmail());
                 System.out.println(patient.getVorname() + " " + patient.getNachname() + " wurde am " + patient.getErsteImpfungDatum() + " mit " + patient.getErsteImpfungStoff() + " geimpft.");
                 writePatientLineList(patientLineStrings);
                 PatientFileLineRemover patientFileLineRemover = new PatientFileLineRemover();
