@@ -7,3 +7,4 @@ target/classes/.netbeans_automatic_build
 target/test-classes/.netbeans_automatic_build
 *.lst
 Configuration.properties
+Impfzertifikat_*.pdf
