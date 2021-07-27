@@ -31,7 +31,7 @@ public class PatientFileLineRemover {
         //Enter name of the file here
         String filename = "todo.csv";
         //Enter starting line here
-        int startline = 1;
+        int startline = 0;
         //Enter number of lines here.
         int numlines = 1;
 
@@ -47,7 +47,7 @@ public class PatientFileLineRemover {
             StringBuffer sb = new StringBuffer("");
 
             //Keep track of the line number
-            int linenumber = 1;
+            int linenumber = 0;
             String line;
 
             while ((line = br.readLine()) != null) {
