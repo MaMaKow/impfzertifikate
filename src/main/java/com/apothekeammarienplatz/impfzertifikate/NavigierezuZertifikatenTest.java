@@ -19,7 +19,8 @@ public class NavigierezuZertifikatenTest {
 
     @Before
     public void setUp() {
-        driver = new ChromeDriver();
+        //driver = new ChromeDriver();
+        driver = Wrapper.getDriver();
         js = (JavascriptExecutor) driver;
         vars = new HashMap<String, Object>();
     }
@@ -36,5 +37,11 @@ public class NavigierezuZertifikatenTest {
         driver.findElement(By.cssSelector(".inline-block path")).click();
         driver.findElement(By.linkText("Dashboard")).click();
         driver.findElement(By.linkText("Digitales Impfzertifikat")).click();
+        /*
+        TODO: ´Die folgenden Zeilen sind zum Testen des Downloads.
+        Die Müssen natürlich iweder raus!
+         */
+        driver.get("https://the-internet.herokuapp.com/download");
+        var downloadLink = driver.findElement(By.cssSelector("a[href*='some-file.txt']"));
     }
 }

@@ -20,6 +20,8 @@ package com.apothekeammarienplatz.impfzertifikate;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openqa.selenium.Keys;
@@ -74,6 +76,16 @@ public class Wrapper {
          */
         //System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver_91_win32\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
+        //PDF herunterladen statt anzeigen:
+        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+        chromePrefs.put("profile.default_content_settings.popups", 0);
+        String downloadFilepath = Paths.get("./").toAbsolutePath().toString();;
+        chromePrefs.put("download.default_directory", downloadFilepath); // Bypass default download directory in Chrome
+        chromePrefs.put("safebrowsing.enabled", "false"); // Bypass warning message, keep file anyway (for .exe, .jar, etc.)
+        chromePrefs.put("plugins.always_open_pdf_externally", true);
+
+        options.setExperimentalOption("prefs", chromePrefs);
+
         options.addArguments("ignore-certificate-errors");
         // Setting headless argument
         options.addArguments("--headless");

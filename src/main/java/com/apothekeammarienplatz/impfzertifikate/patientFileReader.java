@@ -52,7 +52,9 @@ public class patientFileReader {
                     zertifikatsSeite.stelleZertifikatAus(patient, "2");
                 }
                  */
+ /*
                 SendEmail sendEmail = new SendEmail(patient.getVorname(), patient.getNachname(), patient.getEmail());
+                 */
                 System.out.println(patient.getVorname() + " " + patient.getNachname() + " wurde am " + patient.getErsteImpfungDatum() + " mit " + patient.getErsteImpfungStoff() + " geimpft.");
                 writePatientLineList(patientLineStrings);
                 PatientFileLineRemover patientFileLineRemover = new PatientFileLineRemover();

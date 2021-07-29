@@ -27,47 +27,35 @@ import java.io.FileWriter;
 
 public class PatientFileLineRemover {
 
-    public static void main(String[] args) {
-        //Enter name of the file here
-        String filename = "todo.csv";
-        //Enter starting line here
-        int startline = 0;
-        //Enter number of lines here.
-        int numlines = 1;
-
-        //patientFileLineRemover now = new patientFileLineRemover();
-        //now.delete(filename,startline,numlines);
-    }
-
     void delete(String filename, int startline, int numlines) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(filename));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
 
             //String buffer to store contents of the file
-            StringBuffer sb = new StringBuffer("");
+            StringBuffer stringBuffer = new StringBuffer("");
 
             //Keep track of the line number
             int linenumber = 0;
             String line;
 
-            while ((line = br.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 //Store each valid line in the string buffer
                 if (linenumber < startline || linenumber >= startline + numlines) {
-                    sb.append(line + "\n");
+                    stringBuffer.append(line + "\n");
                 }
                 linenumber++;
             }
             if (startline + numlines > linenumber) {
                 System.out.println("End of file reached.");
             }
-            br.close();
+            bufferedReader.close();
 
-            FileWriter fw = new FileWriter(new File(filename));
+            FileWriter fileWriter = new FileWriter(new File(filename));
             //Write entire string buffer into the file
-            fw.write(sb.toString());
-            fw.close();
-        } catch (Exception e) {
-            System.out.println("Something went horribly wrong: " + e.getMessage());
+            fileWriter.write(stringBuffer.toString());
+            fileWriter.close();
+        } catch (Exception exception) {
+            System.out.println("Something went horribly wrong: " + exception.getMessage());
         }
     }
 }
