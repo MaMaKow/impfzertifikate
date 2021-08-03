@@ -88,4 +88,19 @@ public class ReadPropertyFile {
         return "587";
     }
 
+    public String getImpfnachweisUser() {
+        String impfnachweisUser = properties.getProperty("impfnachweisUser");
+        if (null != impfnachweisUser) {
+            return impfnachweisUser;
+        }
+        throw new RuntimeException("impfnachweisUser not specified in the Configuration.properties file.");
+    }
+
+    public String getImpfnachweisPassword() {
+        String impfnachweisPassword = properties.getProperty("impfnachweisPassword");
+        if (null != impfnachweisPassword) {
+            return impfnachweisPassword;
+        }
+        throw new RuntimeException("impfnachweisPassword not specified in the Configuration.properties file.");
+    }
 }

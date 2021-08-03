@@ -19,7 +19,7 @@ public class LoginTest {
 
     @Before
     public void setUp() {
-        driver = new ChromeDriver();
+        driver = Wrapper.getDriver();
         js = (JavascriptExecutor) driver;
         vars = new HashMap<String, Object>();
     }
@@ -35,8 +35,6 @@ public class LoginTest {
         // Step # | name | target | value
         // 1 | open | https://www.mein-apothekenportal.de/ |
         driver.get("https://www.mein-apothekenportal.de/");
-        // 2 | setWindowSize | 1552x840 |
-        driver.manage().window().setSize(new Dimension(1552, 840));
         // 3 | click | linkText=Anmelden |
         driver.findElement(By.linkText("Anmelden")).click();
         // 4 | click | css=.justify-center:nth-child(1) |

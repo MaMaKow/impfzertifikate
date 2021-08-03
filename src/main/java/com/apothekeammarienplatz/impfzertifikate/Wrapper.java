@@ -74,7 +74,7 @@ public class Wrapper {
         /**
          * TODO: put this into the configuration file!
          */
-        //System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver_91_win32\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver_win32\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         //PDF herunterladen statt anzeigen:
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
@@ -88,9 +88,10 @@ public class Wrapper {
 
         options.addArguments("ignore-certificate-errors");
         // Setting headless argument
-        options.addArguments("--headless");
+        //options.addArguments("--headless");
         options.addArguments("window-size=1920,1080");
         options.addArguments("--start-maximized");
+
         driver = new ChromeDriver(options);
         return driver;
     }
@@ -112,7 +113,7 @@ public class Wrapper {
         for (int i = 0; i < charsToEnter.length; i++) {
             try {
                 //Adding a sleep of 500 milliseconds to handle any sync issues
-                Thread.sleep(100);
+                Thread.sleep(50);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Wrapper.class.getName()).log(Level.SEVERE, null, ex);
             }

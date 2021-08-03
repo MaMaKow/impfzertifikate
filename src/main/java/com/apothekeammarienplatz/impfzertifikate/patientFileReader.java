@@ -46,17 +46,17 @@ public class patientFileReader {
                 Patient patient = new Patient(patientLineStrings);
 
                 /*
+                 */
                 ZertifikatsSeite zertifikatsSeite = new ZertifikatsSeite();
                 zertifikatsSeite.stelleZertifikatAus(patient, "1");
+                /*
                 if (!patient.getZweiteImpfungDatum().equals("")) {
                     zertifikatsSeite.stelleZertifikatAus(patient, "2");
                 }
-                 */
- /*
                 SendEmail sendEmail = new SendEmail(patient.getVorname(), patient.getNachname(), patient.getEmail());
                  */
                 System.out.println(patient.getVorname() + " " + patient.getNachname() + " wurde am " + patient.getErsteImpfungDatum() + " mit " + patient.getErsteImpfungStoff() + " geimpft.");
-                writePatientLineList(patientLineStrings);
+                writePatientLineList(patientLineStrings); //Schreibe zu done.csv
                 PatientFileLineRemover patientFileLineRemover = new PatientFileLineRemover();
                 patientFileLineRemover.delete(todoFilePath, lineNumber, 1);
             }
