@@ -16,12 +16,12 @@
  */
 package com.apothekeammarienplatz.impfzertifikate;
 
-import java.util.List;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  *
@@ -40,35 +40,23 @@ public class ZertifikatsSeite {
 
     }
 
-    public void stelleZertifikatAus(Patient patient, String iterator) throws Exception {
+    public ZertifikatsSeite stelleZertifikatAus(Patient patient, String iterator) throws Exception {
         ReadPropertyFile readPropertyFile = new ReadPropertyFile();
         String impfstoff;
         String datum;
+        int selectIndex;
         if (iterator.equals("1")) {
             impfstoff = patient.getErsteImpfungStoff();
             datum = patient.getErsteImpfungDatum();
+            selectIndex = 0;
         } else if (iterator.equals("2")) {
             impfstoff = patient.getZweiteImpfungStoff();
             datum = patient.getZweiteImpfungDatum();
-
+            selectIndex = 1;
         } else {
             throw new Exception("Es wurden erst die Erstimpfung oder Zweitimpfung implementiert.");
         }
 
-        driver.get("https://dav.impfnachweis.info/login");
-        try {
-            //Das Cookie-Banner muss erst weggeklickt werden.
-            driver.findElement(By.xpath("//*[@id=\"cn-save\"]")).click();
-            System.out.println("Wir haben das Cookie-Banner geklickt.");
-        } catch (Exception e) {
-            //Wenn nicht, ist auch nicht schlimm.
-            System.out.println("Es gab kein Cookie-Banner");
-        }
-        driver.findElement(By.id("email")).click();
-        driver.findElement(By.id("email")).sendKeys(readPropertyFile.getImpfnachweisUser());
-        driver.findElement(By.id("password")).click();
-        driver.findElement(By.id("password")).sendKeys(readPropertyFile.getImpfnachweisPassword());
-        driver.findElement(By.cssSelector(".justify-center:nth-child(1)")).click();
         driver.findElement(By.linkText("Ausstellen")).click();
         driver.findElement(By.id("firstName")).click();
         driver.findElement(By.id("firstName")).sendKeys(patient.getVorname());
@@ -82,29 +70,33 @@ public class ZertifikatsSeite {
         Thread.sleep(500);
         driver.findElement(By.id("vaccinationDate")).click();
         driver.findElement(By.id("vaccinationDate")).sendKeys(datum);
+        Thread.sleep(500);
         driver.findElement(By.id("doseNumber")).click();
         {
             WebElement dropdown = driver.findElement(By.id("doseNumber"));
-            dropdown.findElement(By.xpath("//option[position()=" + iterator + "]")).click();
+            //dropdown.findElement(By.xpath("//option[position()=" + iterator + "]")).click();
+            Select dropdownSelect = new Select(dropdown);
+            dropdownSelect.selectByIndex(selectIndex);
         }
         //driver.findElement(By.xpath("//*[@id=\"app\"]/button[text()[contains(.,'Hinzufügen')]]")).click();
-
         driver.findElement(By.cssSelector(".rounded-md > .bg-red-600")).click();
-        {
-            WebElement element = driver.findElement(By.cssSelector(".mt-4:nth-child(2) .inline-flex > .inline-flex"));
-            WebElement element = driver.findElement(By.cssSelector("#app > div.flex-1.flex.flex-col.bg-gray-100 > div > div > div:nth-child(2) > div > div.max-w-2xl.mx-auto.px-4.sm\\:px-6.lg\\:px-8 > div > div > div:nth-child(2) > div > span > button"));
-            WebElement element = driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]/div/div[1]/div/div/div[2]/div/span/button"));
-            WebElement element = driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/div/div/div[2]/div/div[1]/div/div/div[2]/div/span/button"));
-            Actions builder = new Actions(driver);
-            builder.moveToElement(element).perform();
-        }
-        {
-            List<WebElement> elements = driver.findElements(By.cssSelector(".mt-4:nth-child(2) .inline-flex > .inline-flex"));
+        return new ZertifikatsSeite();
+    }
 
-            assert (elements.size() > 0);
-        }
-        Thread.sleep(30000);
+    public ZertifikatsSeite ladeZertifikateHerunter() throws InterruptedException {
+        //Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+
+        By downloadButtonBy = By.xpath("//*[contains (text(), 'PDF herunterladen')]");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(downloadButtonBy));
+        WebElement element = driver.findElement(downloadButtonBy);
+        element.click();
+
+        Thread.sleep(5000);
+        wait.until(ExpectedConditions.elementToBeClickable(downloadButtonBy)); //Jetzt ist der Download fertig
+        driver.findElement(By.linkText("Zurück zur Übersicht")).click();
         /*
          */
+        return new ZertifikatsSeite();
     }
 }

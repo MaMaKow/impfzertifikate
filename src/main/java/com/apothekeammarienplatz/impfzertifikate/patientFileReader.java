@@ -4,12 +4,15 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import org.openqa.selenium.By;
 
 /*
  * Copyright (C) 2021 Mandelkow
@@ -35,31 +38,41 @@ public class patientFileReader {
 
     public static void main(String[] args) throws IOException, CsvException, Exception {
         String todoFilePath = "todo.csv";
-        try (FileReader reader = new FileReader(todoFilePath)) {
+        try {
+
+            InputStreamReader reader = new InputStreamReader(new FileInputStream(todoFilePath), "UTF-8");
             String[] patientLineStrings;
 
             List<String[]> patientLineStringsList;
             patientLineStringsList = getPatientLineList(reader);
-
+            LoginSeite loginSeite = new LoginSeite();
+            loginSeite.login();
             for (int lineNumber = 0; lineNumber < patientLineStringsList.size(); lineNumber++) {
                 patientLineStrings = patientLineStringsList.get(lineNumber);
                 Patient patient = new Patient(patientLineStrings);
 
-                /*
-                 */
                 ZertifikatsSeite zertifikatsSeite = new ZertifikatsSeite();
-                zertifikatsSeite.stelleZertifikatAus(patient, "1");
-                /*
+                zertifikatsSeite = zertifikatsSeite.stelleZertifikatAus(patient, "1");
+                zertifikatsSeite = zertifikatsSeite.ladeZertifikateHerunter();
+                Thread.sleep(1000);
+
                 if (!patient.getZweiteImpfungDatum().equals("")) {
-                    zertifikatsSeite.stelleZertifikatAus(patient, "2");
+                    zertifikatsSeite = zertifikatsSeite.stelleZertifikatAus(patient, "2");
+                    zertifikatsSeite = zertifikatsSeite.ladeZertifikateHerunter();
                 }
-                SendEmail sendEmail = new SendEmail(patient.getVorname(), patient.getNachname(), patient.getEmail());
-                 */
+                try {
+                    //SendEmail sendEmail = new SendEmail(patient.getVorname(), patient.getNachname(), patient.getEmail());
+                } catch (Exception e) {
+                    System.out.println("Es wurde vermutlich keine Mail gesendet.");
+                }
                 System.out.println(patient.getVorname() + " " + patient.getNachname() + " wurde am " + patient.getErsteImpfungDatum() + " mit " + patient.getErsteImpfungStoff() + " geimpft.");
                 writePatientLineList(patientLineStrings); //Schreibe zu done.csv
-                PatientFileLineRemover patientFileLineRemover = new PatientFileLineRemover();
-                patientFileLineRemover.delete(todoFilePath, lineNumber, 1);
+                //PatientFileLineRemover patientFileLineRemover = new PatientFileLineRemover();
+                //patientFileLineRemover.delete(todoFilePath, lineNumber, 1);
             }
+        } catch (Exception exception) {
+            System.out.println(exception);
+            System.out.println("Konnte das CSV nicht lesen.");
         }
     }
 

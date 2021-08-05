@@ -8,3 +8,4 @@ target/test-classes/.netbeans_automatic_build
 *.lst
 Configuration.properties
 Impfzertifikat_*.pdf
+*.ods

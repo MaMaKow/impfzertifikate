@@ -27,11 +27,12 @@ import javax.mail.Session;
 
 public class SendEmail {
 
-    SendEmail(String vorname, String nachname, String email_to) throws IOException {
+    SendEmail(String vorname, String nachname, String email_to) throws IOException, InterruptedException {
 
         ReadPropertyFile readPropertyFile = new ReadPropertyFile();
         // Recipient's email ID needs to be mentioned.
-        String to = "impf-test@martin-mandelkow.de";
+        //String to = "impf-test@martin-mandelkow.de";
+        String to = email_to;
 
         // Sender's email ID needs to be mentioned
         String from = readPropertyFile.getEmailFrom();
@@ -46,6 +47,8 @@ public class SendEmail {
         properties.put("mail.smtp.port", Integer.valueOf(readPropertyFile.getEmailPort()));
         properties.put("mail.smtp.auth", true);
         properties.put("mail.smtp.starttls.enable", true);
+        properties.put("mail.smtp.dsn.notify", "SUCCESS");
+        properties.put("mail.smtp.dsn.ret", "FULL");
 
         // Get the default Session object.
         Session session = Session.getDefaultInstance(properties);
@@ -87,12 +90,12 @@ public class SendEmail {
 
             // Part two is attachment
             messageBodyPart = new MimeBodyPart();
-            String filename = "Impfzertifikat_" + vorname + "_" + nachname + ".pdf";
+            String filename = "C:\\Users\\Apothekenadmin\\Desktop\\Zertifikate\\Impfzertifikat_" + replaceUmlaut(vorname) + "_" + replaceUmlaut(nachname) + ".pdf";
             messageBodyPart.attachFile(filename);
             multipart.addBodyPart(messageBodyPart);
             try {
                 MimeBodyPart messageBodyPart2 = new MimeBodyPart();
-                String filename2 = "Impfzertifikat_" + vorname + "_" + nachname + " (1).pdf";
+                String filename2 = "C:\\Users\\Apothekenadmin\\Desktop\\Zertifikate\\Impfzertifikat_" + replaceUmlaut(vorname) + "_" + replaceUmlaut(nachname) + " (1).pdf";
                 messageBodyPart2.attachFile(filename2);
                 multipart.addBodyPart(messageBodyPart2);
             } catch (Exception e) {
@@ -106,9 +109,25 @@ public class SendEmail {
             message.saveChanges();
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
+            Thread.sleep(1000); //Für den Fall von rate limiting möchten wir dem Mailserver etwas Pause gönnen.
             System.out.println("Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
+            Thread.sleep(1000);
         }
+    }
+
+    private String replaceUmlaut(String input) {
+
+        //Die dateien werden mit gekürzten Umlauten gespeichert:
+        String output = input.replace("ü", "u")
+                .replace("ö", "o")
+                .replace("ä", "a")
+                .replace("ß", "s")
+                .replace("Ü", "U")
+                .replace("Ö", "O")
+                .replace("Ä", "A");
+
+        return output;
     }
 }
