@@ -74,7 +74,7 @@ public class SendEmail {
                     = "Hallo " + vorname + " " + nachname + ", \n"
                     + "\n"
                     + "wir haben Ihre Impfzertifikate fertiggestellt. Sie sind als PDF dieser Email beigefügt.\n"
-                    + "Wenn Sie noch Fragen haben, antworten Sie auf diese Mail oder kommen Sie persönlich vorbei.\n"
+                    + "Bei weiteren Fragen antworten Sie auf diese Mail oder kommen Sie persönlich vorbei.\n"
                     + "\n"
                     + "Mit freundlichen Grüßen\n"
                     + "\n"
